@@ -1,26 +1,19 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "main": "api/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon api/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.3",
-    "body-parser": "^2.2.1",
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1",
+    "express": "^4.19.2",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.1",
     "nodemailer": "^7.0.12",
-    "nodemon": "^3.1.11",
     "serverless-http": "^4.0.0"
   }
 }
