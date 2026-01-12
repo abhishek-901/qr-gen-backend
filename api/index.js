@@ -8,38 +8,24 @@ const userRoute = require("../Route/userRoute");
 
 const app = express();
 
-/* ================================
-   ✅ PERFECT CORS FOR VERCEL + LOCAL
-================================ */
+app.use(express.json());
 
-const allowedOrigins = [
-    "http://localhost:5173",
-    "https://ultimateqr-seven.vercel.app"
-];
-
+/* ✅ FULL CORS FIX */
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true); // postman / curl
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
+    origin: [
+        "https://ultimateqr-seven.vercel.app"
+    ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
 
-/* Preflight must be handled */
+/* ✅ Preflight */
 app.options("*", cors());
-
-app.use(express.json());
 
 connectDB();
 
-/* Routes */
 app.use("/userapi", userRoute);
 
-/* For Vercel */
-module.exports = serverless(app);
+module.exports = app;
+module.exports.handler = serverless(app);
