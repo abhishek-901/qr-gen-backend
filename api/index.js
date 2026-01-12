@@ -8,24 +8,21 @@ const userRoute = require("../Route/userRoute");
 
 const app = express();
 
-/* ✅ CORS – FULL FIX */
 app.use(cors({
-    origin: "https://ultimateqr-seven.vercel.app",
+    origin: ["https://ultimateqr-seven.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
+    credentials: false
 }));
-
-/* ✅ Preflight fix */
-app.options("*", cors());
 
 app.use(express.json());
 
-/* ✅ DB CONNECT – ONLY ONCE */
 connectDB();
 
-/* ✅ ROUTES */
 app.use("/userapi", userRoute);
 
-/* ✅ SERVERLESS EXPORT (ONLY ONE) */
+app.get("/", (req, res) => {
+    res.send("QR Backend Live 🚀");
+});
+
 module.exports = serverless(app);

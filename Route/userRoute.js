@@ -1,27 +1,19 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const uAuth = require("../Middleware/UserAuthentication");
-const userController = require('../controller/userController');
+const user = require("../controller/userController");
 
-// Routes
+router.post("/reguser", user.reguser);
+router.post("/loginuser", user.loginuser);
+router.get("/logoutuser", uAuth, user.logoutuser);
 
-// Test
-router.get("/testuser", uAuth, userController.testuser);
+router.get("/getqrlinks", uAuth, user.getqrlinks);
+router.get("/getqr/:qrid", uAuth, user.getqr);
+router.post("/addlinkqr", uAuth, user.addlinkqr);
+router.put("/editqr/:qrid", uAuth, user.editqr);
+router.delete("/deleteqr/:qrid", uAuth, user.deleteqr);
 
-// QR routes
-router.get("/getqrlinks", uAuth, userController.getqrlinks);
-router.get("/getqr/:qrid", uAuth, userController.getqr);
-router.post("/addlinkqr", uAuth, userController.addlinkqr);
-router.put("/editqr/:qrid", uAuth, userController.editqr);
-router.delete("/deleteqr/:qrid", uAuth, userController.deleteqr);
-
-// User routes
-router.post("/reguser", userController.reguser);
-router.post("/loguser", userController.loginuser);
-router.get("/logoutuser", uAuth, userController.logoutuser);
-
-// Password routes
-router.post("/forgetpass", userController.forgetpass);
-router.post("/reset-pass/:token", userController.resetpass);
+router.post("/forgetpass", user.forgetpass);
+router.post("/reset-pass/:token", user.resetpass);
 
 module.exports = router;
