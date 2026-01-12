@@ -8,24 +8,19 @@ const userRoute = require("../Route/userRoute");
 
 const app = express();
 
-app.use(express.json());
-
-/* ✅ FULL CORS FIX */
 app.use(cors({
-    origin: [
-        "https://ultimateqr-seven.vercel.app"
-    ],
+    origin: "https://ultimateqr-seven.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
 
-/* ✅ Preflight */
-app.options("*", cors());
+app.use(express.json());
 
 connectDB();
 
 app.use("/userapi", userRoute);
+
+app.options("*", cors());
 
 module.exports = app;
 module.exports.handler = serverless(app);
